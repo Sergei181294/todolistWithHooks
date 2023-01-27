@@ -1,8 +1,8 @@
-import type { FC, ChangeEvent} from "react";
+import type { FC } from "react";
 
 interface CheckboxProps {
        checked: boolean;
-       onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+       onChange: () => void;
 }
 
 export const Checkbox: FC<CheckboxProps> = ({checked, onChange}) =>

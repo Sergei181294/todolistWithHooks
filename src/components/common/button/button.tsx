@@ -4,7 +4,7 @@ import cn from "classnames"
 
 
 interface ButtonProps {
-       onClick: () => void;
+       onClick?: () => void;
        disabled?: boolean;
        className?: string;
 }
