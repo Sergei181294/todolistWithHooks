@@ -3,7 +3,7 @@ import { Input, Button, Checkbox, Radiogroup } from "./common"
 import { Tasks } from "../types/Tasks"
 import css from "./styles.module.css"
 import { v4 as uuidv4 } from 'uuid';
-
+import { Route, Routes, Link } from "react-router-dom"
 
 
 const filters = [
@@ -80,9 +80,8 @@ export const App = () => {
                         <li key={task.id} className={css.item}>
                             <div className={css.itemBlock}>
                                 <Checkbox checked={task.isDone} onChange={() => toggleTaskHandler(task.id)} />
-                            
                                 {editedId === task.id ?
-                                    (<Input  className = {css.editInput} onChange={(e) => setEditedValue(e.target.value)} value={editedValue} />)
+                                    (<Input className={css.editInput} onChange={(e) => setEditedValue(e.target.value)} value={editedValue} />)
                                     : (<span>{task.value}</span>)}
                             </div>
                             <div>
@@ -94,6 +93,7 @@ export const App = () => {
 
                     )}
             </ul>
+            <Link to="/tasks" className={css.taskLink}>Перейти к задачам</Link>
         </div>
     )
 }
