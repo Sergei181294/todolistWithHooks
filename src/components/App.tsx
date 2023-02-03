@@ -3,7 +3,7 @@ import { Input, Button, Checkbox, Radiogroup } from "./common"
 import { Tasks } from "../types/Tasks"
 import css from "./styles.module.css"
 import { v4 as uuidv4 } from 'uuid';
-import { Route, Routes, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 const filters = [
