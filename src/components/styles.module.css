@@ -1,0 +1,35 @@
+.list {
+       list-style: none;
+       padding: 0;
+}
+
+.alertBtn {
+       color: red;
+       margin: 0;
+}
+
+.item {
+       margin: 20px 0 0 20px;
+       display: flex;
+       justify-content: space-between;
+       width: 570px;
+}
+
+.itemBlock {
+       align-self: center;
+}
+
+.editInput {
+       width: 200px;
+       margin: 0;
+       padding: 5px;
+       border-radius: 10px;
+       border: 1px solid;
+       font-size: 16px;
+       color: rgb(178 8 221);
+}
+.taskLink {
+       font-size: 20px;
+       margin-left: 10px;
+}
+
