@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
-import { Tasks } from "../../../types/Tasks"
+import { Task } from "../../../store/Types"
 
 
 export const TodoById = () => {
        const { id } = useParams();
        const tasks = JSON.parse(localStorage.getItem("tasks") ?? "[]")
-       const task = tasks.find((task: Tasks) => task.id === id)
+       const task = tasks.find((task: Task) => task.id === id)
 
        return (
               <div>

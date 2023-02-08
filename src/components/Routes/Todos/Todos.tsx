@@ -1,5 +1,5 @@
 import { Link, Outlet} from "react-router-dom";
-import { Tasks } from "../../../types/Tasks"
+import { Task } from "../../../store/Types"
 
 export const Todos = () => {
        const tasks = JSON.parse(localStorage.getItem("tasks") ?? "[]")
@@ -8,7 +8,7 @@ export const Todos = () => {
                      <h1>Todos!</h1>
                      <Link to="/">Main</Link>
                      <br />
-                     {tasks.map((task: Tasks) => <div key = {task.id}><Link to={task.id}>{task.value} </Link></div>)}
+                     {tasks.map((task: Task) => <div key = {task.id}><Link to={task.id}>{task.value} </Link></div>)}
               </div>
        );
 };

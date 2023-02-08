@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import { Input, Button, Checkbox, Radiogroup } from "./common"
-import { Tasks } from "../types/Tasks"
+import { Task } from "../store/Types"
 import css from "./styles.module.css"
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import { Link } from "react-router-dom"
+import { getTasks } from "../store/selectors"
+import { setTasks, addTasks, deleteTask, changeTask } from "../store/actionCreators"
+
 
 
 const filters = [
@@ -16,20 +20,22 @@ const filters = [
 export const App = () => {
 
     const [inputValue, setInputValue] = useState("")
-    const [tasks, setTasks] = useState<Tasks[]>([])
+    // const [tasks, setTasks] = useState<Task[]>([])
     const [filter, setFilter] = useState("all")
 
     const [editedId, setEditedId] = useState<string | null>(null)
     const [editedValue, setEditedValue] = useState("")
 
-    // const inputEl = useRef()
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const tasks = JSON.parse(localStorage.getItem("tasks") ?? "[]");
         if (tasks.length) {
-            setTasks(tasks)
+            dispatch(setTasks(tasks))
         }
-    }, [])
+    }, [ dispatch ])
+
+    const tasks = useSelector(getTasks)
 
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -39,16 +45,18 @@ export const App = () => {
         if (inputValue.trim().length === 0) {
             return alert('Не валидное имя задачи');
         }
-        setTasks((prevTasks) => [...prevTasks, { id: uuidv4(), isDone: false, value: inputValue }]);
+        dispatch(addTasks({value: inputValue, isDone: false}))
         setInputValue("");
+
     }
 
-    const toggleTaskHandler = (id: string) => {
-        setTasks((prevTasks) => [...prevTasks.map((task) => task.id === id ? { ...task, isDone: !task.isDone } : task)]);
+    const toggleTaskHandler = (id: Task["id"], isDone: Partial<Task>) => {
+        // setTasks((prevTasks) => [...prevTasks.map((task) => task.id === id ? { ...task, isDone: !task.isDone } : task)]);(
+        dispatch(changeTask(id, isDone))
     }
 
-    const deleteTaskHandler = (id: string) => {
-        setTasks((prevTasks) => [...prevTasks.filter(task => task.id !== id)]);
+    const deleteTaskHandler = (id: Task["id"]) => {
+        dispatch(deleteTask(id))
     }
 
     const onEditStart = (id: string) => {
@@ -58,7 +66,7 @@ export const App = () => {
     }
 
     const onEditEnd = () => {
-        setTasks(prevTasks => prevTasks.map(task => task.id === editedId ? { ...task, value: editedValue } : task))
+        dispatch(setTasks(tasks))
         setEditedId(null)
 
     }
